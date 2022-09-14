@@ -1,0 +1,102 @@
+li.wc_payment_method.payment_method_sellix {
+    background-color: rgb(30, 32, 33);
+	margin: 0;
+    font-family: source sans pro,helveticaneue-light,helvetica neue light,helvetica neue,Helvetica,Arial,lucida grande,sans-serif;
+}
+
+li.wc_payment_method.payment_method_sellix>label {
+    padding: 1.41575em;
+    cursor: pointer;
+    margin: 0;
+    display: flex!important;
+    align-items: center;
+	color: #e8e6e3;
+}
+
+li.wc_payment_method.payment_method_sellix input.input-radio[name="payment_method"] + label::before {
+    background-image: initial;
+    background-color: rgb(64, 69, 72);
+    border-color: rgb(48, 52, 54);
+    box-shadow: rgb(82 89 92) 0px 0px 0px 2px;
+}
+
+li.wc_payment_method.payment_method_sellix input.input-radio[name=payment_method]+label::before {
+    background: #555;
+    content: ""!important;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #6d6d6d;
+    margin-left: 4px;
+    margin-right: 1.2rem;
+    border-radius: 100%;
+    transform: translateY(2px);
+    padding: 0;
+    overflow: hidden;
+}
+
+.payment_method_sellix .payment_box.payment_method_sellix {
+    background-color: rgb(27, 29, 30) !important;
+	padding: 1.41575em!important;
+    padding-top: 18px!important;
+    margin-top: 0!important;
+
+}
+
+.payment_methods .payment_box {
+    box-shadow: rgb(0 0 0 / 5%) 1px 1px 2px;
+	position: relative;
+}
+
+.sellix-payment-gateway-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 -5px;
+}
+
+.sellix-payment-gateway-form label.sellix-payment-gateway-label {
+    width: 100%;
+	color: #e8e6e3;
+}
+
+select.sellix-payment-gateway-select {
+    border-color: rgb(62, 68, 70);
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+	padding-right: 30px;
+    background-position: right 10px top 50%;
+    background-size: auto 18px;
+    background-repeat: no-repeat;
+	padding: 0 15px;
+    max-width: 100%;
+    width: 100%;
+	vertical-align: middle;
+    font-size: 14px;
+    transition: border-color .5s ease;
+	color: inherit;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+}
+
+:root {
+    --darkreader-text--wd-form-color: inherit;
+    --darkreader-text--wd-form-placeholder-color: inherit;
+    --darkreader-bg--wd-form-bg: rgba(0, 0, 0, 0);
+    --darkreader-border--wd-form-brd-color: rgba(84, 91, 94, 0.2);
+    --darkreader-border--wd-form-brd-color-focus: rgba(84, 91, 94, 0.3);
+    --wd-tags-margin-bottom: 20px;
+    --color-gray-200: #f1f1f1;
+    --color-gray-300: #bbb;
+    --darkreader-text--color-gray-400: #afa89e;
+    --darkreader-text--color-gray-500: #9d9488;
+    --color-gray-600: #666;
+    --color-gray-700: #555;
+    --darkreader-text--color-gray-800: #c8c3bc;
+    --color-gray-900: #242424;
+    --bgcolor-white: #fff;
+    --bgcolor-gray-100: #f7f7f7;
+    --brdcolor-gray-300: rgba(119,119,119,0.2);
+}
