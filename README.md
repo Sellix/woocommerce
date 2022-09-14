@@ -17,3 +17,5 @@ WooCommerce plugin to use Sellix as a Payment Gateway.
 2. Go to the payment tab and enable Sellix as a payment gateway.
 
 3. Fill the API details in the payment settings as well as the enabled Gateways (PayPal, Bitcoin, Litecoin..).
+
+4. Dark mode. If you would like to use a dark version of our WooCommerce plugin, please download and use the `dark-sellix.css` file included in this repository.
