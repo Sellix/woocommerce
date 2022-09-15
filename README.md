@@ -1,14 +1,18 @@
 # WooCommerce Plugin
 
-![](https://img.shields.io/badge/Sellix-WooCommerce-blueviolet) ![](https://img.shields.io/badge/Version-v2.0.0-green)
+![](https://img.shields.io/badge/Sellix-WooCommerce-black) ![](https://img.shields.io/badge/Version-v2.0.0-black)
 
 <p align="center">
-  <img src="https://cdn.sellix.io/cdn-cgi/image/w=500,h=500/static/logo/main.png" alt="Sellix Logo"/>
+  <img src="https://cdn.sellix.io/static/previews/woocommerce.jpeg" alt="Sellix Logo"/>
 </p>
 
 WooCommerce plugin to use Sellix as a Payment Gateway.
 
-# Installation
+# Standard Installation
+
+0. Visit our WooCommerce plugin page at [wordpress.org/plugins/sellix-pay](https://wordpress.org/plugins/sellix-pay/), click the Download button and you're done!
+
+# Manual Installation
 
 0. Download the latest release ZIP [on GitHub](https://github.com/Sellix/woocommerce/releases).
 
