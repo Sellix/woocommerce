@@ -426,9 +426,9 @@ function sellix_init_gateway_class() {
                         <?php if ($this->binance_coin){ ?><option value="BINANCE_COIN"><?php _e( 'Binance Coin (BNB)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->paypal){ ?><option value="PAYPAL"><?php _e( 'PayPal', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->stripe){ ?><option value="STRIPE"><?php _e( 'Stripe', 'sellix-pay' );?></option><?php } ?>
-                        <?php if ($this->usdt_erc20 && $this->usdt){ ?><option value="USDT:ERC20"><?php _e( 'USDC:ERC20', 'sellix-pay' );?></option><?php } ?>
-                        <?php if ($this->usdt_bep20 && $this->usdt){ ?><option value="USDT:BEP20"><?php _e( 'USDC:BEP20', 'sellix-pay' );?></option><?php } ?>
-                        <?php if ($this->usdt_trc20 && $this->usdt){ ?><option value="USDT:TRC20"><?php _e( 'USDC:TRC20', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->usdt_erc20 && $this->usdt){ ?><option value="USDT:ERC20"><?php _e( 'USDT:ERC20', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->usdt_bep20 && $this->usdt){ ?><option value="USDT:BEP20"><?php _e( 'USDT:BEP20', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->usdt_trc20 && $this->usdt){ ?><option value="USDT:TRC20"><?php _e( 'USDT:TRC20', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->usdc_erc20 && $this->usdc){ ?><option value="USDC:ERC20"><?php _e( 'USDC:ERC20', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->usdc_bep20 && $this->usdc){ ?><option value="USDC:BEP20"><?php _e( 'USDC:BEP20', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->binance_pay){ ?><option value="BINANCE_PAY"><?php _e( 'Binance Pay (BUSD)', 'sellix-pay' );?></option><?php } ?>
