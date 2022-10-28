@@ -19,12 +19,12 @@
     width: 100%;
 } 
 
-.usdt-sub, .usdc-sub {
+/*.usdt-sub, .usdc-sub {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-}
+}*/
 
 .sellix-payment-gateway-form .payment-labels {
     background: #ebebeb;
@@ -33,13 +33,6 @@
     /* text-transform: uppercase; */
 }
 
-/* .payment-usdt-main > .payment-labels-container .payment-labels, .payment-usdc-main > .payment-labels-container .payment-labels {
-    background: none;
-    padding: 5px 0;
-}
-.payment-usdt-main > .payment-labels-container img, .payment-usdc-main > .payment-labels-container img {
-    display: none;
-} */
 select.sellix-payment-gateway-select {
     height: 40px;
     border: 1px solid #ccc;
@@ -85,9 +78,11 @@ li.wc_payment_method.payment_method_sellix > label {
     margin-bottom: 0;
     display: flex !important;
     align-items: center;
-    font-size: 16px;
+    font-size: 14px;
     line-height: normal;
     word-break: break-word;
+    font-weight: 400;
+    font-family: sans-serif;
 }
 
 .payment_method_sellix .sellix-payment-gateway-form > p {
@@ -121,6 +116,14 @@ li.wc_payment_method.payment_method_sellix input.input-radio[name=payment_method
     padding: 0;
     overflow: hidden;
 }
+
+body.theme-storefront.right-sidebar .sellix-payment-gateway-form .payment-labels > label {
+    font-size: 13px;
+}
+
+/*body.theme-storefront .sellix-payment-gateway-form .payment-labels-container {
+    width: 100%;
+}*/
 
 @media (max-width: 1100px) {
     .sellix-payment-gateway-form .payment-labels-container {

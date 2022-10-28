@@ -11,9 +11,9 @@
  * Domain Path: /languages
  *
  * Requires at least: 4.9
- * Tested up to: 6.0.1
+ * Tested up to: 6.0.2
  * WC requires at least: 3.5
- * WC tested up to: 6.8.2
+ * WC tested up to: 6.9.1
  */
 
 // If this file is called directly, abort.
@@ -29,7 +29,6 @@ define('SELLIX_BASE_PATH', plugin_dir_path( __FILE__ ));
 
 
 register_activation_hook( __FILE__, 'activate_sellix_pay');
-
 
 
 /*
