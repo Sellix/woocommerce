@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sellix Pay
  * Description: Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay.
- * Version: 1.0
+ * Version: 1.4
  * Author:  Sellix io
  * Author URI: https://sellix.io/
  * Developer: Team Virtina (Harshal)
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('SELLIX_VERSION', '1.3');
+define('SELLIX_VERSION', '1.4');
 define('SELLIX_PLUGIN_DIR', untrailingslashit( dirname(__FILE__)));
 define('SELLIX_DIR_NAME', plugin_basename(dirname(__FILE__)));
 define('SELLIX_BASE_URL', plugins_url() . '/' . SELLIX_DIR_NAME);
@@ -123,6 +123,7 @@ function sellix_init_gateway_class() {
                 $this->paypal = $this->get_option('paypal') == 'yes' ? true : false;
                 $this->stripe = $this->get_option('stripe') == 'yes' ? true : false;
                 $this->bitcoin = $this->get_option('bitcoin') == 'yes' ? true : false;
+                $this->concordium = $this->get_option('concordium') == 'yes' ? true : false;
                 $this->tron = $this->get_option('tron') == 'yes' ? true : false;
                 $this->litecoin = $this->get_option('litecoin') == 'yes' ? true : false;
                 $this->ethereum = $this->get_option('ethereum') == 'yes' ? true : false;
@@ -183,6 +184,17 @@ function sellix_init_gateway_class() {
                                 <label class="stripe">
                                     <input type="radio" name="payment_gateway" value="STRIPE" />
                                     <img src="<?php _e( SELLIX_BASE_URL. '/assets/images/stripe.png','sellix-pay'); ?>" alt="Stripe" style="border-radius: 0px;" width="20" height="20"> <?php _e( 'Stripe', 'sellix-pay' );?> 
+                                </label>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if ($this->concordium){ ?>
+                        <div class="payment-labels-container">
+                            <div class="payment-labels concordium">
+                                <label class="concordium">
+                                    <input type="radio" name="payment_gateway" value="CONCORDIUM" />
+                                    <img src="<?php _e( SELLIX_BASE_URL. '/assets/images/concordium.png','sellix-pay'); ?>" alt="Concordium" style="border-radius: 0px;" width="20" height="20"> <?php _e( 'Concordium (CCD)', 'sellix-pay' );?>
                                 </label>
                             </div>
                         </div>
@@ -412,10 +424,11 @@ function sellix_init_gateway_class() {
 
 
                     <select name="payment_gateway" class="sellix-payment-gateway-select">
-                        <?php if ($this->bitcoin){ ?><option value="BITCOIN"><?php _e( 'Bitcoin (BTC', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->bitcoin){ ?><option value="BITCOIN"><?php _e( 'Bitcoin (BTC)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->ethereum){ ?><option value="EUTHEREUM"><?php _e( 'Ethereum (ETH)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->bitcoin_cash){ ?><option value="BITCOINCASH"><?php _e( 'Bitcoin Cash (BCH)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->litecoin){ ?><option value="LITECOIN"><?php _e( 'Litecoin (LTC)', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->concordium){ ?><option value="CONCORDIUM"><?php _e( 'Concordium (CCD)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->tron){ ?><option value="TRON"><?php _e( 'Tron (TRX)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->nano){ ?><option value="NANO"><?php _e( 'Nano (XNO)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->monero){ ?><option value="MONERO"><?php _e( 'Monero (XMR)', 'sellix-pay' );?></option><?php } ?>
@@ -539,6 +552,12 @@ function sellix_init_gateway_class() {
                     'bitcoin' => [
                         'title' => __('Accept Bitcoin', 'sellix-pay'),
                         'label' => __('Enable/Disable Bitcoin', 'sellix-pay'),
+                        'type' => 'checkbox',
+                        'default' => 'no',
+                    ],
+                    'concordium' => [
+                        'title' => __('Accept Concordium', 'sellix-pay'),
+                        'label' => __('Enable/Disable Concordium', 'sellix-pay'),
                         'type' => 'checkbox',
                         'default' => 'no',
                     ],
