@@ -122,6 +122,7 @@ function sellix_init_gateway_class() {
                 $this->confirmations = $this->get_option('confirmations');
                 $this->paypal = $this->get_option('paypal') == 'yes' ? true : false;
                 $this->stripe = $this->get_option('stripe') == 'yes' ? true : false;
+                $this->cash_app = $this->get_option('cash_app') == 'yes' ? true : false;
                 $this->bitcoin = $this->get_option('bitcoin') == 'yes' ? true : false;
                 $this->concordium = $this->get_option('concordium') == 'yes' ? true : false;
                 $this->tron = $this->get_option('tron') == 'yes' ? true : false;
@@ -189,6 +190,17 @@ function sellix_init_gateway_class() {
                         </div>
                     <?php } ?>
 
+                    <?php if ($this->cash_app){ ?>
+                        <div class="payment-labels-container">
+                            <div class="payment-labels cash_app">
+                                <label class="cash_app">
+                                    <input type="radio" name="payment_gateway" value="CASH_APP" />
+                                    <img src="<?php _e( SELLIX_BASE_URL. '/assets/images/cash-app.png','sellix-pay'); ?>" alt="Cash App" style="border-radius: 0px;" width="20" height="20"> <?php _e( 'Cash App', 'sellix-pay' );?>
+                                </label>
+                            </div>
+                        </div>
+                    <?php } ?>
+
                     <?php if ($this->concordium){ ?>
                         <div class="payment-labels-container">
                             <div class="payment-labels concordium">
@@ -237,7 +249,7 @@ function sellix_init_gateway_class() {
                         <div class="payment-labels-container">
                             <div class="payment-labels ethereum">
                                 <label class="ethereum">
-                                    <input type="radio" name="payment_gateway" value="EUTHEREUM" />
+                                    <input type="radio" name="payment_gateway" value="ETHEREUM" />
                                     <img src="<?php _e( SELLIX_BASE_URL. '/assets/images/ethereum.png','sellix-pay'); ?>" alt="Ethereum" style="border-radius: 0px;" width="20" height="20"> <?php _e( 'Ethereum (ETH)', 'sellix-pay' );?>
                                 </label>
                             </div>
@@ -248,7 +260,7 @@ function sellix_init_gateway_class() {
                         <div class="payment-labels-container">
                             <div class="payment-labels bitcoin_cash">
                                 <label class="bitcoin_cash">
-                                    <input type="radio" name="payment_gateway" value="BITCOINCASH" />
+                                    <input type="radio" name="payment_gateway" value="BITCOIN_CASH" />
                                     <img src="<?php _e( SELLIX_BASE_URL. '/assets/images/bitcoin-cash.png','sellix-pay'); ?>" alt="Bitcoin Cash" style="border-radius: 0px;" width="20" height="20"> <?php _e( 'Bitcoin Cash (BCH)', 'sellix-pay' );?>
                                 </label>
                             </div>
@@ -425,8 +437,8 @@ function sellix_init_gateway_class() {
 
                     <select name="payment_gateway" class="sellix-payment-gateway-select">
                         <?php if ($this->bitcoin){ ?><option value="BITCOIN"><?php _e( 'Bitcoin (BTC)', 'sellix-pay' );?></option><?php } ?>
-                        <?php if ($this->ethereum){ ?><option value="EUTHEREUM"><?php _e( 'Ethereum (ETH)', 'sellix-pay' );?></option><?php } ?>
-                        <?php if ($this->bitcoin_cash){ ?><option value="BITCOINCASH"><?php _e( 'Bitcoin Cash (BCH)', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->ethereum){ ?><option value="ETHEREUM"><?php _e( 'Ethereum (ETH)', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->bitcoin_cash){ ?><option value="BITCOIN_CASH"><?php _e( 'Bitcoin Cash (BCH)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->litecoin){ ?><option value="LITECOIN"><?php _e( 'Litecoin (LTC)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->concordium){ ?><option value="CONCORDIUM"><?php _e( 'Concordium (CCD)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->tron){ ?><option value="TRON"><?php _e( 'Tron (TRX)', 'sellix-pay' );?></option><?php } ?>
@@ -438,6 +450,7 @@ function sellix_init_gateway_class() {
                         <?php if ($this->binance_coin){ ?><option value="BINANCE_COIN"><?php _e( 'Binance Coin (BNB)', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->paypal){ ?><option value="PAYPAL"><?php _e( 'PayPal', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->stripe){ ?><option value="STRIPE"><?php _e( 'Stripe', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->cash_app){ ?><option value="CASH_APP"><?php _e( 'Cash App', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->usdt_erc20 && $this->usdt){ ?><option value="USDT:ERC20"><?php _e( 'USDT:ERC20', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->usdt_bep20 && $this->usdt){ ?><option value="USDT:BEP20"><?php _e( 'USDT:BEP20', 'sellix-pay' );?></option><?php } ?>
                         <?php if ($this->usdt_trc20 && $this->usdt){ ?><option value="USDT:TRC20"><?php _e( 'USDT:TRC20', 'sellix-pay' );?></option><?php } ?>
@@ -546,6 +559,12 @@ function sellix_init_gateway_class() {
                     'stripe' => [
                         'title' => __('Accept Stripe', 'sellix-pay'),
                         'label' => __('Enable/Disable Stripe', 'sellix-pay'),
+                        'type' => 'checkbox',
+                        'default' => 'no',
+                    ],
+                    'cash_app' => [
+                        'title' => __('Accept Cash App', 'sellix-pay'),
+                        'label' => __('Enable/Disable Cash App', 'sellix-pay'),
                         'type' => 'checkbox',
                         'default' => 'no',
                     ],
