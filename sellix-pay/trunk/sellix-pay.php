@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sellix Pay
  * Description: Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay.
- * Version: 1.6
+ * Version: 1.7
  * Author:  Sellix io
  * Author URI: https://sellix.io/
  * Developer: Team Virtina (Harshal)
@@ -11,9 +11,9 @@
  * Domain Path: /languages
  *
  * Requires at least: 4.9
- * Tested up to: 6.0.2
+ * Tested up to: 6.1.1
  * WC requires at least: 3.5
- * WC tested up to: 6.9.1
+ * WC tested up to: 7.3.0
  */
 
 // If this file is called directly, abort.
@@ -425,7 +425,7 @@ function sellix_init_gateway_class() {
                         <div class="payment-labels-container">
                             <div class="payment-labels perfectmoney">
                                 <label class="perfectmoney">
-                                    <input type="radio" name="payment_gateway" value="PERFECTMONEY" />
+                                    <input type="radio" name="payment_gateway" value="PERFECT_MONEY" />
                                     <img src="<?php _e( SELLIX_BASE_URL. '/assets/images/pm.png','sellix-pay'); ?>" alt="PerfectMoney" style="border-radius: 0px;" width="20" height="20"> <?php _e( 'PerfectMoney', 'sellix-pay' );?> 
                                 </label>
                             </div>
@@ -460,7 +460,7 @@ function sellix_init_gateway_class() {
 
 
                         <?php if ($this->skrill){ ?><option value="SKRILL"><?php _e( 'Skrill', 'sellix-pay' );?></option><?php } ?>
-                        <?php if ($this->perfectmoney){ ?><option value="PERFECTMONEY"><?php _e( 'PerfectMoney', 'sellix-pay' );?></option><?php } ?>
+                        <?php if ($this->perfectmoney){ ?><option value="PERFECT_MONEY"><?php _e( 'PerfectMoney', 'sellix-pay' );?></option><?php } ?>
                     </select>
                     <?php } ?>
                     <p style="margin-top:10px;"><?php _e( $this->description, 'sellix-pay' ); ?></p>
@@ -727,12 +727,16 @@ function sellix_init_gateway_class() {
 
                     if (is_wp_error($response)) {
                         return wc_add_notice(__('Payment error:', 'sellix-pay') . 'Sellix API error: ' . print_r($response->errors, true), 'error');
-                    } elseif (isset($response['response']['code']) && $response['response']['code'] == 200) {
-                        //  return $response['body'];
+                    } else if (isset($response['body']) && !empty($response['body'])) {
                         $responseDecode = json_decode($response['body'], true);
+                        if (isset($responseDecode['error']) && !empty($responseDecode['error'])) {
+                            return wc_add_notice(__('Payment Gateway Error: ', 'sellix-pay') . $responseDecode['status'].'-'.$responseDecode['error'], 'error');
+                        }
                         return $responseDecode['data']['url'];
+                    } else {
+                        return wc_add_notice(__('Payment Gateway Error: Empty response received.', 'sellix-pay'));
                     }
-                }else{
+                } else{
                     return wc_add_notice(__('Payment Gateway Error', 'sellix-pay') . 'Sellix Before API error: Payment Method Not Selected OR Something Wrong', 'error');
                 }
                  
