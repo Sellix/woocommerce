@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sellix Pay
  * Description: Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay.
- * Version: 1.7
+ * Version: 1.8
  * Author:  Sellix io
  * Author URI: https://sellix.io/
  * Developer: Team Virtina (Harshal)
@@ -149,7 +149,8 @@ function sellix_init_gateway_class() {
                 $this->monero = $this->get_option('monero') == 'yes' ? true : false;
 
                 $this->skrill = $this->get_option('skrill') == 'yes' ? true : false;
-                $this->perfectmoney = $this->get_option('perfectmoney') == 'yes' ? true : false;			
+                $this->perfectmoney = $this->get_option('perfectmoney') == 'yes' ? true : false;
+                $this->url_branded = $this->get_option('url_branded') == 'yes' ? true : false;
                 $this->log = new WC_Logger();     // Logger
                 // Actions
                 add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
@@ -530,6 +531,13 @@ function sellix_init_gateway_class() {
                         'description' => __('Please enter your Sellix API Key.', 'sellix-pay'),
                         'default' => '',
                     ],
+                    'url_branded' => [
+                        'title' => __('Branded URL', 'sellix-pay'),
+                        'label' => __('Enable/Disable Sellix Pay Checkout Branded URL', 'sellix-pay'),
+                        'type' => 'checkbox',
+                        'description' => __('If this is enabled, customer will be redirected to your branded sellix pay checkout url', 'sellix-pay'),
+                        'default' => 'no',
+                    ],
                     'order_id_prefix' => [
                         'title' => __('Order ID Prefix', 'sellix-pay'),
                         'type' => 'text',
@@ -732,7 +740,14 @@ function sellix_init_gateway_class() {
                         if (isset($responseDecode['error']) && !empty($responseDecode['error'])) {
                             return wc_add_notice(__('Payment Gateway Error: ', 'sellix-pay') . $responseDecode['status'].'-'.$responseDecode['error'], 'error');
                         }
-                        return $responseDecode['data']['url'];
+
+                        $url = $responseDecode['data']['url'];
+                        if ($this->url_branded) {
+                            if (isset($responseDecode['data']['url_branded'])) {
+                                $url = $responseDecode['data']['url_branded'];
+                            }
+                        }
+                        return $url;
                     } else {
                         return wc_add_notice(__('Payment Gateway Error: Empty response received.', 'sellix-pay'));
                     }
