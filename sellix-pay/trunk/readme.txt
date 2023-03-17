@@ -2,11 +2,11 @@
 Contributors: sellix, hdhingra 
 Tags: crypto,paypal, sellix-pay, payment-gateway,trust wallet, bitcoin, cryptocurrency, crypto wallet, walletconnect
 Requires at least: 4.9
-Tested up to: 6.0.2
+Tested up to: 6.1.1
 Stable tag: trunk
 Author URI: https://sellix.io/
 Author:   Sellix io
-Version: 1.6
+Version: 1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
@@ -87,3 +87,17 @@ It’s simple. Tap on the “Sign Up” button on the top and start transferring
 8. Sellix Pay Direct Product Setting
 9. Sellix Pay Payment Gateway Configure Settings.
 10. Sellix Pay Crypto Currency Transactions.
+
+== Changelog ==
+
+= 1.0 =
+* Initial release.
+
+== Upgrade Notice ==
+
+= 1.7 =
+- Bug fixed when getting the gateway redirect url
+- And updated perfectmoney gateway value
+
+= 1.8 =
+- Added a new option: merchant can enable their own branded sellix pay checked url to their customers.
