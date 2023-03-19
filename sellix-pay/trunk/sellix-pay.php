@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('SELLIX_VERSION', '1.9');
+define('SELLIX_VERSION', '2.0');
 define('SELLIX_PLUGIN_DIR', untrailingslashit( dirname(__FILE__)));
 define('SELLIX_DIR_NAME', plugin_basename(dirname(__FILE__)));
 define('SELLIX_BASE_URL', plugins_url() . '/' . SELLIX_DIR_NAME);
@@ -105,7 +105,7 @@ function sellix_init_gateway_class() {
             {
                 global $woocommerce;
                 $this->id = 'sellix';
-                $this->icon = apply_filters('woocommerce_sellix_icon', SELLIX_BASE_URL . '/assets/images/single-black.webp');
+                $this->icon = apply_filters('woocommerce_sellix_icon', SELLIX_BASE_URL . '/assets/images/logo.png');
                 $this->method_title = __('Sellix', 'sellix-pay');
                 $this->method_description  = $this->get_option('description');
                 $this->has_fields = true;

@@ -101,3 +101,8 @@ It’s simple. Tap on the “Sign Up” button on the top and start transferring
 
 = 1.8 =
 - Added a new option: merchant can enable their own branded sellix pay checked url to their customers.
+
+= 1.9 =
+- Removed payment gateway selection.
+- Removed confirmations settings
+- Updated logo dimensions.
