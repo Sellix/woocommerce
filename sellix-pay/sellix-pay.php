@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('SELLIX_VERSION', '2.0');
+define('SELLIX_VERSION', '1.5');
 define('SELLIX_PLUGIN_DIR', untrailingslashit( dirname(__FILE__)));
 define('SELLIX_DIR_NAME', plugin_basename(dirname(__FILE__)));
 define('SELLIX_BASE_URL', plugins_url() . '/' . SELLIX_DIR_NAME);
