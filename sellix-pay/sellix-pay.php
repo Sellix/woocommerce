@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sellix Pay
  * Description: Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay.
- * Version: 1.9.2
+ * Version: 1.9.3
  * Author:  Sellix io
  * Author URI: https://sellix.io/
  * Developer: Team Virtina (Harshal)
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('SELLIX_VERSION', '1.5');
+define('SELLIX_VERSION', '1.9.3');
 define('SELLIX_PLUGIN_DIR', untrailingslashit( dirname(__FILE__)));
 define('SELLIX_DIR_NAME', plugin_basename(dirname(__FILE__)));
 define('SELLIX_BASE_URL', plugins_url() . '/' . SELLIX_DIR_NAME);
@@ -123,6 +123,8 @@ function sellix_init_gateway_class() {
                 add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
                 // Webhook Handler
                 add_action('woocommerce_api_sellix_webhook_handler', [$this, 'webhook_handler']);
+                
+                $this->x_merchant = $this->get_option('x_merchant');
             }
             
             function is_valid_for_use()
@@ -194,6 +196,13 @@ function sellix_init_gateway_class() {
                         'type' => 'text',
                         'description' => __('The prefix before the order number. For example, a prefix of "Order #" and a ID of "10" will result in "Order #10"', 'sellix-woocommerce'),
                         'default' => 'Order #',
+                    ],
+                    'x_merchant' => [
+                        'title' => __('X-Sellix-Merchant', 'sellix-pay'),
+                        'type' => 'text',
+                        'description' => __('If you have more than one shop (merchant) under your Sellix account, you can send API requests with their authorization by passing theX-Sellix-Merchant header to each request.', 'sellix-pay').' '.
+                        'For example if your Sellix account has two merchants (1. Jack, 2. James) and you want to make API requests as James, you need to pass the X-Sellix-Merchant header with value James to able to authenticate as different stores',
+                        'default' => '',
                     ],
                 ];
 
@@ -314,6 +323,9 @@ function sellix_init_gateway_class() {
                     'Authorization' => 'Bearer ' . $apiKey,
                 );
                
+                if (!empty($this->x_merchant)) {
+                    $headers['X-Sellix-Merchant'] = sanitize_text_field($this->x_merchant);
+                }
                 
 		if($extra_headers && is_array($extra_headers)) {
 			$headers = array_merge($headers, $extra_headers);

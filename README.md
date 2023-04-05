@@ -42,3 +42,11 @@ WooCommerce plugin to use Sellix as a Payment Gateway.
 - Removed payment gateway selection.
 - Removed confirmations settings
 - Updated logo dimensions.
+
+= 1.9.2 =
+- Fixed logo image missing
+
+= 1.9.3 =
+- Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
+- Plugin tested on WordPress 6.2.1
+- Plugin tested on WooCommerce 7.5.1
