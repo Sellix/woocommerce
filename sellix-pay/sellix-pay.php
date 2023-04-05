@@ -198,10 +198,10 @@ function sellix_init_gateway_class() {
                         'default' => 'Order #',
                     ],
                     'x_merchant' => [
-                        'title' => __('X-Sellix-Merchant', 'sellix-pay'),
+                        'title' => __('Sellix Store Name', 'sellix-pay'),
                         'type' => 'text',
-                        'description' => __('If you have more than one shop (merchant) under your Sellix account, you can send API requests with their authorization by passing theX-Sellix-Merchant header to each request.', 'sellix-pay').' '.
-                        'For example if your Sellix account has two merchants (1. Jack, 2. James) and you want to make API requests as James, you need to pass the X-Sellix-Merchant header with value James to able to authenticate as different stores',
+                        'description' => __('If you have more than one shop (merchant) under your Sellix account and you want to create payment invoices with them, specify the Store name here.', 'sellix-pay').' '.
+                        'For example if your Sellix account has two merchants (1. Jack, 2. James) and you want to create orders as James, set this field to "James".',
                         'default' => '',
                     ],
                 ];
