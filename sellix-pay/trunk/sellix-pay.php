@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sellix Pay
  * Description: Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay.
- * Version: 1.9.3
+ * Version: 1.9.4
  * Author:  Sellix io
  * Author URI: https://sellix.io/
  * Developer: Team Virtina (Harshal)
@@ -220,6 +220,7 @@ function sellix_init_gateway_class() {
                         'webhook' => add_query_arg('wc_id', $order->get_id(), $this->webhook_url),
                         'email' => $order->get_billing_email(),
                         'value' => $order->get_total(),
+                        'origin' => 'WOOCOMMERCE',
                     ];
 
                     $route = "/v1/payments";

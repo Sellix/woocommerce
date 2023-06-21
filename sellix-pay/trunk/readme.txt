@@ -6,7 +6,7 @@ Tested up to: 6.2.1
 Stable tag: trunk
 Author URI: https://sellix.io/
 Author:   Sellix io
-Version: 1.9.3
+Version: 1.9.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
@@ -114,3 +114,6 @@ It’s simple. Tap on the “Sign Up” button on the top and start transferring
 - Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
 - Plugin tested on WordPress 6.2.1
 - Plugin tested on WooCommerce 7.5.1
+
+= 1.9.4 =
+- Added Origin Param

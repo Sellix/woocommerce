@@ -50,3 +50,6 @@ WooCommerce plugin to use Sellix as a Payment Gateway.
 - Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
 - Plugin tested on WordPress 6.2.1
 - Plugin tested on WooCommerce 7.5.1
+
+= 1.9.4 =
+- Added Origin Param
