@@ -125,6 +125,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 			'webhook' => add_query_arg('wc_id', $order->get_id(), $this->webhook_url),
 			'email' => $order->get_billing_email(),
 			'value' => $order->get_total(),
+			'origin' => 'WOOCOMMERCE',
 		];
 
 		$route = "/v1/payments";

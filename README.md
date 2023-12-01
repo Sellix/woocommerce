@@ -53,3 +53,8 @@ WooCommerce plugin to use Sellix as a Payment Gateway.
 
 = 1.9.4 =
 - Now it is compatible to Blocks(React) based checkout
+
+= 1.9.5 =
+- Added Origin Param
+- Logo Changed
+
