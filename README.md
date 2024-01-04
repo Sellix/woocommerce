@@ -58,3 +58,5 @@ WooCommerce plugin to use Sellix as a Payment Gateway.
 - Added Origin Param
 - Logo Changed
 
+= 1.9.6 =
+- Now it is compatible to High-Performance Order Storage

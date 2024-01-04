@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sellix Pay
  * Description: Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay.
- * Version: 1.9.5
+ * Version: 1.9.6
  * Author:  Sellix io
  * Author URI: https://sellix.io/
  * Developer: Team Virtina (Harshal)
@@ -11,9 +11,9 @@
  * Domain Path: /languages
  *
  * Requires at least: 4.9
- * Tested up to: 6.2.1
+ * Tested up to: 6.4.2
  * WC requires at least: 3.5
- * WC tested up to: 7.5.1
+ * WC tested up to: 8.4.0
  */
 
 // If this file is called directly, abort.
@@ -27,6 +27,11 @@ define('SELLIX_DIR_NAME', plugin_basename(dirname(__FILE__)));
 define('SELLIX_BASE_URL', plugins_url() . '/' . SELLIX_DIR_NAME);
 define('SELLIX_BASE_PATH', plugin_dir_path( __FILE__ ));
 
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
 
 register_activation_hook( __FILE__, 'activate_sellix_pay');
 

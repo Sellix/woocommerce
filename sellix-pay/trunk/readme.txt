@@ -2,11 +2,12 @@
 Contributors: sellix, hdhingra 
 Tags: crypto,paypal, sellix-pay, payment-gateway,trust wallet, bitcoin, cryptocurrency, crypto wallet, walletconnect
 Requires at least: 4.9
-Tested up to: 6.2.1
+Tested up to: 6.4.2
+WC tested up to: 8.4.0
 Stable tag: trunk
 Author URI: https://sellix.io/
 Author:   Sellix io
-Version: 1.9.5
+Version: 1.9.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
