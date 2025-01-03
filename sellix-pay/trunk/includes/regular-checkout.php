@@ -10,6 +10,13 @@
 
 class WC_Gateway_SellixPay extends WC_Payment_Gateway
 {
+	public $webhook_url;
+	public $api_key;
+	public $debug_mode;
+	public $order_id_prefix;
+	public $url_branded;
+	public $x_merchant;
+
 	public function __construct()
 	{
 		global $woocommerce;
@@ -27,7 +34,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 		$this->api_key = $this->get_option('api_key');
 		$this->order_id_prefix = $this->get_option('order_id_prefix');
 		$this->url_branded = $this->get_option('url_branded') == 'yes' ? true : false;
-		$this->log = new WC_Logger();     // Logger
+
 		// Actions
 		add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
 		// Webhook Handler
@@ -47,7 +54,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 	public function admin_options()
 	{
 		?>
-		<h3><?php _e('Sellix', 'sellix-pay'); ?></h3>
+		<h3><?php esc_html_e('Sellix', 'sellix-pay'); ?></h3>
 
 		<table class="form-table">
 			<?php
@@ -78,7 +85,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 				'title' => __('Title', 'sellix-pay'),
 				'type' => 'text',
 				'description' => __('This controls the title which the user sees during checkout.', 'sellix-pay'),
-				'default' => __('Sellix Pay', 'woocommerce'),
+				'default' => __('Sellix Pay', 'sellix-pay'),
 				'desc_tip' => true,
 			],
 			'description' => [
@@ -103,7 +110,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 			'order_id_prefix' => [
 				'title' => __('Order ID Prefix', 'sellix-pay'),
 				'type' => 'text',
-				'description' => __('The prefix before the order number. For example, a prefix of "Order #" and a ID of "10" will result in "Order #10"', 'sellix-woocommerce'),
+				'description' => __('The prefix before the order number. For example, a prefix of "Order #" and a ID of "10" will result in "Order #10"', 'sellix-pay'),
 				'default' => 'Order #',
 			],
 			'x_merchant' => [
@@ -132,14 +139,14 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 		$response = $this->sellix_post_authenticated_json_request($route, $params);
 
 		if (is_wp_error($response)) {
-			$errorMessage = __('Payment error:', 'sellix-pay') . 'Sellix API error: ' . print_r($response->errors, true); 
-			throw new \Exception($errorMessage);
+			$errorMessage = __('Payment error', 'sellix-pay'); 
+			throw new \Exception(esc_html($errorMessage));
 
 		} else if (isset($response['body']) && !empty($response['body'])) {
 			$responseDecode = json_decode($response['body'], true);
 			if (isset($responseDecode['error']) && !empty($responseDecode['error'])) {
 				$errorMessage = __('Payment Gateway Error: ', 'sellix-pay') . $responseDecode['status'].'-'.$responseDecode['error']; 
-				throw new \Exception($errorMessage);
+				throw new \Exception(esc_html($errorMessage));
 			}
 
 			$url = $responseDecode['data']['url'];
@@ -151,7 +158,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 			return $url;
 		} else {
 			$errorMessage = __('Payment Gateway Error: Empty response received.', 'sellix-pay');
-			throw new \Exception($errorMessage);
+			throw new \Exception(esc_html($errorMessage));
 		}
 	}
 	
@@ -165,8 +172,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 			$payment = $this->generate_sellix_payment($order);
 
 			if ($this->debug_mode) {
-				error_log(print_r('Payment process concerning order ' .
-					$order_id . ' returned: ' . $payment, true));
+				$this->log('Payment process concerning order ' .$order_id . ' returned: ' . $payment);
 			}
 			
 			if ($payment) {
@@ -176,12 +182,12 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 				];
 			} else {
 				$errorMessage = __('Payment Gateway Error: Empty response received.', 'sellix-pay');
-				throw new \Exception($errorMessage);
+				throw new \Exception(esc_html($errorMessage));
 			}
 		} catch (\Exception $e) {
             $message = $e->getMessage();
 			if ($this->debug_mode) {
-				error_log($message);
+				$this->log($message);
 			}
 			
             WC()->session->set('refresh_totals', true);
@@ -199,26 +205,36 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 	 */
 	public function webhook_handler()
 	{
-		global $woocommerce;			
+		global $woocommerce;
+		
+		if (isset($_GET['sellixpaynonce']) && !wp_verify_nonce(sanitize_key($_GET['sellixpaynonce']), 'sellixpay-web_hook_handler')) {
+			exit;
+		}
+		
 		$data = json_decode(file_get_contents('php://input'), true);
 		
 		if ($this->debug_mode)
-			error_log(print_r('Webhook Handler received data: ' . $data, true));
+		$this->log('Webhook Handler received data: ' . $data);
 		
 		
 		$sellix_order = $this->valid_sellix_order($data['data']['uniqid']);
 		
 		if ($this->debug_mode)
-			error_log(print_r('Concerning Sellix order: ' . $sellix_order, true));
+		$this->log('Concerning Sellix order: ' . $sellix_order);
 		
-		$viWcID = sanitize_text_field($_REQUEST['wc_id']);
+		$viWcID = 0;
+
+		if (isset($_REQUEST['wc_id'])) {
+			$viWcID = sanitize_text_field(wp_unslash($_REQUEST['wc_id']));
+		}
+		
 		if ($sellix_order) {
 			$order = wc_get_order($viWcID);
 	   
 			if ($this->debug_mode)
-				error_log(print_r('Concerning Wordpress order: ' . $order, true));
+			$this->log('Concerning Wordpress order: ' . $order);
 
-			$this->log->add('sellix', 'Order #' . $viWcID . ' (' . $sellix_order['uniqid'] . '). Status: ' . $sellix_order['status']);
+			$this->log('Order #' . $viWcID . ' (' . $sellix_order['uniqid'] . '). Status: ' . $sellix_order['status']);
 
 			if ($sellix_order['status'] == 'COMPLETED') {
 				$this->complete_order($viWcID);
@@ -271,7 +287,7 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 		$response = $this->sellix_post_authenticated_json_request($route,'','','GET');
 	   
 		if ($this->debug_mode)
-			error_log(print_r('Order validation returned: ' . $response['body'], true));
+			$this->log('Order validation returned: ' . $response['body']);
 		
 		if (is_wp_error($response)) {
 			mail(get_option('admin_email'), __('Unable to verify order via Sellix Pay API', 'sellix-pay'), $order_uniqid);
@@ -287,4 +303,62 @@ class WC_Gateway_SellixPay extends WC_Payment_Gateway
 		$order = wc_get_order($wc_id);
 		$order->update_status('completed');
 	}
+
+	public function option_exists($option_name) 
+	{
+		$value = get_option($option_name);
+		return $value;
+	}
+
+	public function log($content)
+    {
+        $debug = $this->debug_mode;
+        if ($debug == 'yes') {
+			if (!$this->option_exists("woocommerce_sellixpay_logfile_prefix")) {
+				$logfile_prefix = md5(uniqid(wp_rand(), true));
+				update_option('woocommerce_sellixpay_logfile_prefix', $logfile_prefix);
+			} else {
+				$logfile_prefix = get_option('woocommerce_sellixpay_logfile_prefix');
+				if (empty($logfile_prefix)) {
+					$logfile_prefix = md5(uniqid(wp_rand(), true));
+					update_option('woocommerce_sellixpay_logfile_prefix', $logfile_prefix);
+				}
+			}
+			
+			$filename = $logfile_prefix.'_sellixpay_debug.log';
+
+            $file = ABSPATH .'wp-content/uploads/wc-logs/'.$filename;
+			
+            try {
+				/*
+				if (!defined( 'FS_CHMOD_FILE' ) ) {
+                    define('FS_CHMOD_FILE', 0644);
+                }				
+				
+				require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+				require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+				
+				$filesystem = new WP_Filesystem_Direct( false );
+				$filesystem->put_contents("\n".gmdate("Y-m-d H:i:s").": ".print_r($content, true));
+				*/
+				
+				// @codingStandardsIgnoreStart
+				/*
+				We tried to use WP_Filesystem methods, look at the above commented out code block.
+				But this put_contents method just writing the code not appending to the file.
+				So we have only the last written content in the file.
+				Because in the below method fopen initiated with 'wb' mode instead of 'a' or 'a+', otherwise this core method must be modified to able to pass the file open mode from the caller.
+				public function put_contents( $file, $contents, $mode = false ) {
+				$fp = @fopen( $file, 'wb' );
+				*/
+				$fp = fopen($file, 'a+');
+                if ($fp) {
+                    fwrite($fp, "\n".gmdate("Y-m-d H:i:s").": ".print_r($content, true));
+                    fclose($fp);
+                }
+				// @codingStandardsIgnoreEnd
+				
+            } catch (\Exception $e) {}
+        }
+    }
 }
