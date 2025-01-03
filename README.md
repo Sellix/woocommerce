@@ -26,37 +26,45 @@ WooCommerce plugin to use Sellix as a Payment Gateway.
 
 == Changelog ==
 
-= 1.0 =
-* Initial release.
-
-== Upgrade Notice ==
-
-= 1.7 =
-- Bug fixed when getting the gateway redirect url
-- And updated perfectmoney gateway value
-
-= 1.8 =
-- Added a new option: merchant can enable their own branded sellix pay checked url to their customers.
-
-= 1.9 =
-- Removed payment gateway selection.
-- Removed confirmations settings
-- Updated logo dimensions.
-
-= 1.9.2 =
-- Fixed logo image missing
-
-= 1.9.3 =
-- Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
-- Plugin tested on WordPress 6.2.1
-- Plugin tested on WooCommerce 7.5.1
-
-= 1.9.4 =
-- Now it is compatible to Blocks(React) based checkout
-
-= 1.9.5 =
-- Added Origin Param
-- Logo Changed
+= 1.9.7 =
+* Jan 03, 2025
+* Applied various security fixes
+* Applied Plugin Check Recemmendations
+* Plugin tested on WooCommerce 9.5.1
+* Plugin tested on WordPress 6.7.1
 
 = 1.9.6 =
-- Now it is compatible to High-Performance Order Storage
+* Jan 04, 2024
+* Now it is compatible to High-Performance Order Storage
+* Plugin tested on WooCommerce 8.4.0
+* Plugin tested on WordPress 6.4.5
+
+= 1.9.5 =
+* Added Origin Param
+* Logo Changed
+
+= 1.9.4 =
+* Now it is compatible to Blocks(React) based checkout
+
+= 1.9.3 =
+* Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
+* Plugin tested on WordPress 6.2.1
+* Plugin tested on WooCommerce 7.5.1
+
+= 1.9.2 =
+* Fixed logo image missing
+
+= 1.9 =
+* Removed payment gateway selection.
+* Removed confirmations settings
+* Updated logo dimensions.
+
+= 1.8 =
+* Added a new option: merchant can enable their own branded sellix pay checked url to their customers.
+
+= 1.7 =
+* Bug fixed when getting the gateway redirect url
+* And updated perfectmoney gateway value
+
+= 1.0 =
+* Initial release.

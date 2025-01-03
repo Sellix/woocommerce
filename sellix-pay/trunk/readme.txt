@@ -1,16 +1,17 @@
 === Sellix Pay ===
-Contributors: sellix, hdhingra 
-Tags: crypto,paypal, sellix-pay, payment-gateway,trust wallet, bitcoin, cryptocurrency, crypto wallet, walletconnect
+Contributors: sellix
+Tags: sellix-pay, payment gateway, woocommerce, crypto, paypal
+Stable tag: 1.9.7
 Requires at least: 4.9
-Tested up to: 6.4.2
-WC tested up to: 8.4.0
-Stable tag: trunk
+Tested up to: 6.7.1
+WC requires at least: 3.5
+WC tested up to: 9.5.1
+Requires PHP: 7.4
 Author URI: https://sellix.io/
 Author:   Sellix io
-Version: 1.9.6
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 7.4
+License: MIT
+
+Accept Cryptocurrencies, Credit Cards, PayPal and regional banking methods with Sellix Pay..
 
 == Description ==
 
@@ -91,34 +92,45 @@ It’s simple. Tap on the “Sign Up” button on the top and start transferring
 
 == Changelog ==
 
-= 1.0 =
-* Initial release.
+= 1.9.7 =
+* Jan 03, 2025
+* Applied various security fixes
+* Applied Plugin Check Recemmendations
+* Plugin tested on WooCommerce 9.5.1
+* Plugin tested on WordPress 6.7.1
 
-== Upgrade Notice ==
-
-= 1.7 =
-- Bug fixed when getting the gateway redirect url
-- And updated perfectmoney gateway value
-
-= 1.8 =
-- Added a new option: merchant can enable their own branded sellix pay checked url to their customers.
-
-= 1.9 =
-- Removed payment gateway selection.
-- Removed confirmations settings
-- Updated logo dimensions.
-
-= 1.9.2 =
-- Fixed logo image missing
-
-= 1.9.3 =
-- Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
-- Plugin tested on WordPress 6.2.1
-- Plugin tested on WooCommerce 7.5.1
-
-= 1.9.4 =
-- Now it is compatible to Blocks(React) based checkout
+= 1.9.6 =
+* Jan 04, 2024
+* Now it is compatible to High-Performance Order Storage
+* Plugin tested on WooCommerce 8.4.0
+* Plugin tested on WordPress 6.4.5
 
 = 1.9.5 =
-- Added Origin Param
-- Logo Changed
+* Added Origin Param
+* Logo Changed
+
+= 1.9.4 =
+* Now it is compatible to Blocks(React) based checkout
+
+= 1.9.3 =
+* Added a new option: If merchant have more than one shop under their Sellix account, send API requests with their authorization by passing the X-Sellix-Merchant header to each request.
+* Plugin tested on WordPress 6.2.1
+* Plugin tested on WooCommerce 7.5.1
+
+= 1.9.2 =
+* Fixed logo image missing
+
+= 1.9 =
+* Removed payment gateway selection.
+* Removed confirmations settings
+* Updated logo dimensions.
+
+= 1.8 =
+* Added a new option: merchant can enable their own branded sellix pay checked url to their customers.
+
+= 1.7 =
+* Bug fixed when getting the gateway redirect url
+* And updated perfectmoney gateway value
+
+= 1.0 =
+* Initial release.
